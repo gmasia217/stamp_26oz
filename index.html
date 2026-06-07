@@ -10,43 +10,43 @@
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/jpeg" href="sidereus_icon.jpg">
 <link rel="apple-touch-icon" href="sidereus_icon.jpg">
-<meta name="theme-color" content="#f4f7f5">
+<meta name="theme-color" content="#FFD500">
 
 <style>
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
 
 :root {
-  /* 🪄 오즈 테마 컬러 (에메랄드 그린 & 옐로우 골드 포인트) */
-  --bg: #f4f7f5;      
-  --bg2: #ffffff;     
-  --bg3: #e3ebe6;     
-  --bg4: #d0ded5;     /* 빈 좌석 색상 */
-  --brd: #c4d4ca;     
-  --brd2: #a7bfae;    
+  /* 🪄 오즈 테마 컬러 (포스터의 샛노란색 배경 & 주황, 초록 원색 포인트) */
+  --bg: #FFD500;      /* 샛노란색 배경 */
+  --bg2: #FFFFFF;     /* 카드 및 모달 배경 (깔끔한 흰색) */
+  --bg3: #FFF8CC;     /* 호버 및 선택 배경 (연한 노란색) */
+  --bg4: #EAEAEA;     /* 빈 좌석 색상 (밝은 회색) */
+  --brd: #E5C000;     /* 외곽선 (약간 짙은 노랑) */
+  --brd2: #D1B000;    
 
-  --txt: #1c2b22;     
-  --txt2: #304a3a;    
-  --txt3: #4b6e58;    
-  --txt4: #70947e;    
-  --dim: #8faaa4;
+  --txt: #111111;     /* 기본 텍스트 (명도 대비를 위해 아주 짙은 검정) */
+  --txt2: #333333;    
+  --txt3: #555555;    
+  --txt4: #777777;    
+  --dim: #999999;
 
-  --red: #1b7a43;     /* 메인 포인트 (에메랄드 그린) */
-  --red2: #145c32;    
-  --red3: #2d9e5b;    
-  --red4: #54c280;
+  --red: #F05A28;     /* 메인 포인트 (포스터의 주황색) */
+  --red2: #D94D20;    
+  --red3: #FA7A50;    
+  --red4: #FF9C7D;
 
-  --grn: #d4a017;     /* 서브 포인트 (옐로우 브릭) */
-  --grn2: #f2e3b6;
-  --blu: #3b7a8f;
-  --blu2: #c3dee6;
+  --grn: #009E60;     /* 서브 포인트 (포스터의 초록색) */
+  --grn2: #E5F5ED;
+  --blu: #3B7A8F;
+  --blu2: #C3DEE6;
 
-  /* 🎨 좌석 히트맵 컬러 (에메랄드 톤 그라데이션) */
-  --seat1: #a3d9b8;   /* 1회: 화사한 파스텔 그린 */
-  --seat2: #72bf8e;   /* 2회: 중간 톤 그린 */
-  --seat3: #44a365;   /* 3회: 짙은 그린 */
-  --seat4: #1b7a43;   /* 4회: 메인 에메랄드 그린 */
-  --seat5: #0e4d29;   /* 5회+: 다크 포레스트 그린 */
+  /* 🎨 좌석 히트맵 컬러 (주황색 그라데이션) */
+  --seat1: #FFC5A3;   /* 1회: 연한 주황 */
+  --seat2: #FF9966;   /* 2회: 중간 톤 주황 */
+  --seat3: #FF7033;   /* 3회: 짙은 주황 */
+  --seat4: #F05A28;   /* 4회: 메인 포인트 주황 */
+  --seat5: #C24219;   /* 5회+: 아주 짙은 브릭 오렌지 */
   
   --tab-h: 60px;
 }
@@ -73,7 +73,7 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 /* BUTTONS */
 .btn { background:var(--bg2); border:1px solid var(--brd2); color:var(--txt); padding:8px 14px; cursor:pointer; font-family:inherit; font-size:13px; border-radius:6px; transition:all 0.2s; font-weight:600; }
 .btn:active { border-color:var(--red); color:var(--red); background:var(--bg3); }
-.btn.prim { background:var(--red); border-color:var(--red); color:#fff; font-weight:700; box-shadow: 0 2px 6px rgba(27,122,67,0.2); }
+.btn.prim { background:var(--red); border-color:var(--red); color:#fff; font-weight:700; box-shadow: 0 2px 6px rgba(240,90,40,0.2); }
 .btn.prim:active { background:var(--red2); border-color:var(--red2); }
 .btn.sm { padding:4px 10px; font-size:11px; }
 .btn.ghost { background:transparent; border-color:transparent; color:var(--txt4); }
@@ -84,8 +84,8 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 .seg-group { display:flex; gap:8px; }
 .seg-item { flex:1; text-align:center; background:var(--bg3); border:1px solid var(--brd2); border-radius:6px; cursor:pointer; color:var(--txt2); padding:10px 0; transition:0.2s; font-size:13px; font-weight:600; }
 .seg-item input { display:none; }
-.seg-item.active.red { background:rgba(27,122,67,0.12); border-color:var(--red); color:var(--red); }
-.seg-item.active.grn { background:rgba(212,160,23,0.12); border-color:var(--grn); color:var(--grn); }
+.seg-item.active.red { background:rgba(240,90,40,0.12); border-color:var(--red); color:var(--red); }
+.seg-item.active.grn { background:rgba(0,158,96,0.12); border-color:var(--grn); color:var(--grn); }
 
 /* TABLE */
 .twrap { overflow-x:auto; margin:0 -16px; padding:0 16px; -webkit-overflow-scrolling: touch; }
@@ -95,7 +95,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .hover-row:hover { background-color: var(--bg3); }
 
 /* NEXT D-DAY HIGHLIGHT */
-.closest-row td { background-color: rgba(27,122,67,0.08) !important; }
+.closest-row td { background-color: rgba(240,90,40,0.08) !important; }
 .closest-row .st-date { border-left: 3px solid var(--red) !important; }
 .next-badge { display: inline-block; font-size: 8px; background: var(--red); color: #fff; padding: 1px 4px; border-radius: 4px; margin-bottom: 2px; font-weight: 800; letter-spacing: 0.5px; }
 
@@ -106,7 +106,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 
 /* FORMS & MODALS */
 .finput, .fselect { width:100%; background:var(--bg2); border:1px solid var(--brd2); color:var(--txt); padding:10px 12px; font-family:inherit; font-size:13px; border-radius:6px; outline:none; color-scheme:light; text-transform: uppercase; font-weight:500; }
-.finput:focus, .fselect:focus { border-color:var(--red); box-shadow: 0 0 0 2px rgba(27,122,67,0.15); background:var(--bg); }
+.finput:focus, .fselect:focus { border-color:var(--red); box-shadow: 0 0 0 2px rgba(240,90,40,0.15); background:var(--bg2); }
 .fg { margin-bottom:12px; }
 .flbl { display:block; font-size:11px; color:var(--txt2); margin-bottom:5px; font-weight:700; }
 
@@ -139,9 +139,9 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cal-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
 .cal-grid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:1px; position:relative; background:var(--brd); border:1px solid var(--brd); border-radius:4px; overflow:hidden;}
 .cal-dow { text-align:center; font-size:11px; font-weight:700; color:var(--txt2); padding:8px 0; background:var(--bg2); }
-.cal-day { min-height:100px; min-width:0; background:var(--bg); padding:6px 4px; cursor:pointer; position:relative; display:flex; flex-direction:column; align-items:flex-start; transition:background 0.15s; }
-.cal-day.today { background:rgba(27,122,67,.06); border:1px solid var(--red); }
-.cal-day.empty { background:var(--bg2); cursor:default; }
+.cal-day { min-height:100px; min-width:0; background:var(--bg2); padding:6px 4px; cursor:pointer; position:relative; display:flex; flex-direction:column; align-items:flex-start; transition:background 0.15s; }
+.cal-day.today { background:rgba(240,90,40,.06); border:1px solid var(--red); }
+.cal-day.empty { background:var(--bg4); cursor:default; }
 .cal-day-num { font-size:12px; font-weight:700; color:var(--txt); margin-bottom:4px; padding-left:2px; }
 .cal-day.sun .cal-day-num { color:#d9534f; }
 .cal-day.sat .cal-day-num { color:var(--blu); }
@@ -150,9 +150,9 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .cs-time { font-size:11px; font-weight:700; color:var(--txt); }
 .cs-time::before { content: '• '; }
 .cs-cast { font-size:10px; color:var(--txt2); margin-top:2px; padding-left:0; word-break:break-all; white-space:normal; line-height:1.2; font-weight:500; }
-.cs-chip.booked { background:rgba(27,122,67,0.12); border-color:rgba(27,122,67,0.2); }
+.cs-chip.booked { background:rgba(240,90,40,0.12); border-color:rgba(240,90,40,0.2); }
 .cs-chip.booked .cs-time, .cs-chip.booked .cs-cast { color:var(--red); font-weight:700; }
-.cs-chip.unseated { background:rgba(143, 170, 164, 0.25); border-color:var(--brd2); }
+.cs-chip.unseated { background:rgba(200, 200, 200, 0.25); border-color:var(--brd2); }
 .cs-chip.unseated .cs-time, .cs-chip.unseated .cs-cast { color:var(--txt2); }
 
 /* WALLET & STAMPS */
@@ -196,9 +196,9 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   transform: scale(1.05) rotate(3deg);
 }
 
-/* HEATMAP & MINIMAP */
-.heatmap-wrap { display:flex; flex-direction:column; gap:30px; align-items:center; overflow-x:auto; padding-bottom:15px; }
-.mini-hm-container { display:flex; flex-direction:column; gap:20px; align-items:center; margin:16px 0; border:1px solid var(--brd2); padding:20px; border-radius:8px; background:var(--bg); overflow-x:auto;}
+/* HEATMAP & MINIMAP (티오엠 2관 맞춤 가로 배치) */
+.heatmap-wrap { display:flex; flex-direction:row; gap:20px; align-items:flex-start; justify-content:flex-start; overflow-x:auto; padding-bottom:15px; width:100%; }
+.mini-hm-container { display:flex; flex-direction:row; gap:15px; align-items:flex-start; margin:16px 0; border:1px solid var(--brd2); padding:20px; border-radius:8px; background:var(--bg2); overflow-x:auto; justify-content:flex-start; }
 
 .zone-col { display:flex; flex-direction:column; gap:3px; align-items:center; }
 .seat-row { display:flex; gap:3px; align-items:center; }
@@ -230,6 +230,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 <div id="app">
   <div class="page active" id="page-record">
     <div style="text-align:center; margin-bottom:16px; position:relative;">
+      <!-- 로고 이미지 적용 (oz_logo.png) -->
       <img src="oz_logo.png" alt="오즈" style="height:55px; object-fit:contain;">
     </div>
     
@@ -324,7 +325,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
     <div class="card">
       <div class="card-title">좌석 히트맵</div>
       <div style="font-size:11px; color:var(--txt3); font-weight:600; margin-top:-8px; margin-bottom:16px;">📍 대학로 TOM 2관</div>
-      <div class="heatmap-wrap" id="heatmap-container" style="margin-top:10px;"></div>
+      <div class="heatmap-wrap" id="heatmap-container"></div>
       <div class="heatmap-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--bg4);"></div>0회</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--seat1);"></div>1회</div>
@@ -419,10 +420,16 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
     </div>
     
     <div class="fg">
-      <label class="flbl">좌석 정보 (층 / 열 / 번호)</label>
+      <label class="flbl">좌석 정보 (구역 / 열 / 번호)</label>
       <div style="display:flex; gap:10px;">
-        <select id="rm-zone" class="fselect" style="flex:1;"><option value="">층 선택</option><option value="1층">1층</option><option value="2층">2층</option></select>
-        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열 (A~Q)">
+        <!-- 티오엠 2관 맞춤형 구역 선택 -->
+        <select id="rm-zone" class="fselect" style="flex:1;">
+          <option value="">구역 선택</option>
+          <option value="B구역">B구역</option>
+          <option value="C구역">C구역</option>
+          <option value="D구역">D구역</option>
+        </select>
+        <input type="text" id="rm-row" class="finput" style="flex:1; text-transform:uppercase;" placeholder="열 (1~7)">
         <input type="number" id="rm-num" class="finput" style="flex:1;" placeholder="번호" min="1">
       </div>
     </div>
@@ -574,34 +581,42 @@ const CONFIG = {
 };
 
 // ============================================================
-// 대학로 TOM 2관 (임시 좌표 배치는 필요에 따라 수정 가능)
+// 대학로 TOM 2관 좌석 데이터 (B, C, D 3구역 구조 완벽 반영)
+// - B와 D 구역의 사선 배치를 구현하기 위해 null 패딩으로 조정
 // ============================================================
 const THEATER_ZONES = [
   {
-    name: '1층',
+    name: 'B구역',
     rows: [
-      { id: 'A', map: [22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1] },
-      { id: 'B', map: [22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1] },
-      { id: 'C', map: [null,null,null,null, 'a', null, 13,12,11,10,9,8,7,6,5,4,3,2,1, 'a', null,null,null,null] },
-      { id: 'D', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'E', map: [21,20,19,18, 'a', null, 17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'F', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'G', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'H', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'I', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'J', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'K', map: [22,21,20,19, 'a', 18,17,16,15,14,13,12,11,10,9,8,7,6,5, 'a', 4,3,2,1] },
-      { id: 'L', map: [14,13,12,11, 'a', 10,9,8, null,null,null,null,null,null,null,null, 7,6,5, 'a', 4,3,2,1] },
-      { id: 'M', map: [16,15,14,13, 12, 11,10,9, null,null,null,null,null,null,null, 8,7,6,5, 'a', 4,3,2,1] }
+      { id: '1', map: [null, null, 9, 8, null, null, null, null, null, null, null] },
+      { id: '2', map: [null, 10, 9, 8, 7, 6, 5, 4, null, null, null] },
+      { id: '3', map: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
+      { id: '4', map: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
+      { id: '5', map: [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
+      { id: '6', map: [null, null, null, 8, 7, 6, 5, 4, 3, 2, 1] },
+      { id: '7', map: [null, null, null, null, null, 6, 5, 4, 3, 2, 1] }
     ]
   },
   {
-    name: '2층',
+    name: 'C구역',
     rows: [
-      { id: 'N', map: [23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1] },
-      { id: 'O', map: [null, 22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1] },
-      { id: 'P', map: [null,null,null,null,null, 18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1] },
-      { id: 'Q', map: [null,null,null, 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1] }
+      { id: '1', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] },
+      { id: '2', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
+      { id: '3', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] },
+      { id: '4', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] },
+      { id: '5', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] },
+      { id: '6', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21] }
+    ]
+  },
+  {
+    name: 'D구역',
+    rows: [
+      { id: '1', map: [null, null, 1, 2, 3, 4, 5, 6, 7, 8] },
+      { id: '2', map: [null, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+      { id: '3', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+      { id: '4', map: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+      { id: '5', map: [null, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+      { id: '6', map: [null, null, 1, 2, 3, 4, 5, 6, 7, 8] }
     ]
   }
 ];
@@ -1092,31 +1107,14 @@ function renderMiniMap(selZone, selRow, selNum) {
   let hmHtml = '<div class="mini-hm-container">';
   
   THEATER_ZONES.forEach(z => {
-    hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:10px;">`;
+    hmHtml += `<div style="display:flex; flex-direction:column; align-items:center;">`;
     hmHtml += `<div style="font-size:11px; font-weight:700; color:var(--txt2); margin-bottom:8px;">${z.name}</div>`;
-    hmHtml += `<div style="display:flex; gap:10px; align-items:flex-start;">`;
-    
-    if (z.left) {
-      hmHtml += `<div style="display:flex; flex-direction:column; gap:2px; align-items:center;">`;
-      hmHtml += `<div class="mini-row-label" style="margin:0 0 4px 0;">${z.left.id}</div>`;
-      z.left.map.forEach(col => {
-        if (col === null) {
-          hmHtml += `<div class="mini-seat-cell hidden"></div>`;
-        } else {
-          const isSel = (z.name === selZone && z.left.id === selRow && col === selNum);
-          hmHtml += `<div class="mini-seat-cell ${isSel ? 'highlight' : ''}"></div>`;
-        }
-      });
-      hmHtml += `</div>`;
-    }
-
     hmHtml += `<div class="zone-col" style="gap:2px;">`;
+    
     z.rows.forEach(rowInfo => {
       hmHtml += `<div class="mini-seat-row"><div class="mini-row-label">${rowInfo.id}</div>`;
       rowInfo.map.forEach(col => {
-        if (col === 'a') {
-           hmHtml += `<div class="mini-seat-aisle"></div>`;
-        } else if (col === null) {
+        if (col === null) {
            hmHtml += `<div class="mini-seat-cell hidden"></div>`;
         } else {
            const isSel = (z.name === selZone && rowInfo.id === selRow && col === selNum);
@@ -1125,21 +1123,7 @@ function renderMiniMap(selZone, selRow, selNum) {
       });
       hmHtml += `</div>`;
     });
-    hmHtml += `</div>`;
-
-    if (z.right) {
-      hmHtml += `<div style="display:flex; flex-direction:column; gap:2px; align-items:center;">`;
-      hmHtml += `<div class="mini-row-label" style="margin:0 0 4px 0;">${z.right.id}</div>`;
-      z.right.map.forEach(col => {
-        if (col === null) {
-          hmHtml += `<div class="mini-seat-cell hidden"></div>`;
-        } else {
-          const isSel = (z.name === selZone && z.right.id === selRow && col === selNum);
-          hmHtml += `<div class="mini-seat-cell ${isSel ? 'highlight' : ''}"></div>`;
-        }
-      });
-      hmHtml += `</div>`;
-    }
+    
     hmHtml += `</div></div>`;
   });
   
@@ -1519,7 +1503,7 @@ function renderCoupons() {
         <div class="wcard-header">${f.label}</div>
         <div class="wcard-body" style="flex-direction:column;">
           <div class="wcard-half" style="border-right:none; border-bottom:1px solid var(--brd2); padding:8px 0;">
-            <div class="wcard-label-curr" style="color:var(--txt2);">현재</div>
+            <div class="wcard-label-curr" style="color:var(--red);">현재</div>
             <div class="wcard-val" style="color:${getColor(cVal)};">${cVal}</div>
           </div>
           <div class="wcard-half" style="padding:8px 0;">
@@ -1581,7 +1565,7 @@ function initWalletForm() {
   document.getElementById('wm-coupon-inputs').innerHTML = CONFIG.WALLET_FIELDS.map(f => `
     <div style="background:var(--bg2); border:1px solid var(--brd2); padding:8px; border-radius:6px; text-align:center;">
       <div style="font-size:10px; color:var(--txt2); margin-bottom:4px; line-height:1.2; font-weight:700;">${f.label}</div>
-      <input type="number" id="wm-val-${f.id}" class="finput" style="text-align:center; padding:4px; font-weight:700; background:var(--bg);" value="0" min="0">
+      <input type="number" id="wm-val-${f.id}" class="finput" style="text-align:center; padding:4px; font-weight:700; background:var(--bg2);" value="0" min="0">
     </div>
   `).join('');
 }
@@ -1866,33 +1850,14 @@ function renderStats() {
 
   let hmHtml = '';
   THEATER_ZONES.forEach(z => { 
-    hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; margin-bottom:10px; width:100%;">`;
+    hmHtml += `<div style="display:flex; flex-direction:column; align-items:center;">`;
     hmHtml += `<div style="font-size:11px; font-weight:700; color:var(--txt); margin-bottom:12px;">${z.name}</div>`;
-    
-    hmHtml += `<div style="display:flex; gap:16px; align-items:flex-start;">`;
-    
-    if (z.left) {
-      hmHtml += `<div style="display:flex; flex-direction:column; gap:3px; align-items:center;">`;
-      hmHtml += `<div class="row-label" style="margin:0 0 4px 0;">${z.left.id}</div>`;
-      z.left.map.forEach(col => {
-        if (col === null) {
-          hmHtml += `<div class="seat-cell hidden"></div>`;
-        } else {
-          const k = `${z.name}-${z.left.id}-${col}`;
-          const cnt = seatMap[k] || 0;
-          hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" title="${z.name} ${z.left.id}열 ${col}번: ${cnt}회"></div>`;
-        }
-      });
-      hmHtml += `</div>`;
-    }
-    
     hmHtml += `<div class="zone-col">`;
+    
     z.rows.forEach(rowInfo => {
       hmHtml += `<div class="seat-row"><div class="row-label">${rowInfo.id}</div>`;
       rowInfo.map.forEach(col => {
-        if (col === 'a') {
-           hmHtml += `<div class="seat-aisle"></div>`;
-        } else if (col === null) {
+        if (col === null) {
            hmHtml += `<div class="seat-cell hidden"></div>`;
         } else {
            const k = `${z.name}-${rowInfo.id}-${col}`;
@@ -1902,22 +1867,7 @@ function renderStats() {
       });
       hmHtml += `</div>`;
     });
-    hmHtml += `</div>`;
-
-    if (z.right) {
-      hmHtml += `<div style="display:flex; flex-direction:column; gap:3px; align-items:center;">`;
-      hmHtml += `<div class="row-label" style="margin:0 0 4px 0;">${z.right.id}</div>`;
-      z.right.map.forEach(col => {
-        if (col === null) {
-          hmHtml += `<div class="seat-cell hidden"></div>`;
-        } else {
-          const k = `${z.name}-${z.right.id}-${col}`;
-          const cnt = seatMap[k] || 0;
-          hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" title="${z.name} ${z.right.id}열 ${col}번: ${cnt}회"></div>`;
-        }
-      });
-      hmHtml += `</div>`;
-    }
+    
     hmHtml += `</div></div>`; 
   });
   
