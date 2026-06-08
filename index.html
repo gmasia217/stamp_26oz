@@ -13,6 +13,8 @@
 <meta name="theme-color" content="#FFD500">
 
 <style>
+/* 1. 픽셀체(Neo둥근모)와 고딕체(프리텐다드) 동시 로드 */
+@import url('https://cdn.jsdelivr.net/gh/neodunggeunmo/neodunggeunmo/webfont/neodunggeunmo.css');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
 
@@ -52,23 +54,32 @@
 }
 
 * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+
+/* 2. 본문 기본 글꼴은 가독성 좋은 프리텐다드 설정 */
 body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-serif; font-size:14px; overflow-x:hidden; }
 #app { padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); }
 
+/* 3. 특정 타이틀과 강조 숫자에만 픽셀체(Neo둥근모) 덮어씌우기 */
+.page-title, .card-title, .tab-btn, .wcard-val, .next-badge, #cal-month-title, .detail-date-title, .photobook-icon {
+  font-family: 'NeoDunggeunmo', sans-serif !important;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+}
+
 /* TAB BAR */
 .tab-bar { position:fixed; bottom:0; left:0; width:100%; height:calc(var(--tab-h) + env(safe-area-inset-bottom, 0px)); padding-bottom:env(safe-area-inset-bottom, 0px); background:var(--bg2); border-top:1px solid var(--brd); display:flex; z-index:100; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-.tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:none; border:none; cursor:pointer; color:var(--txt4); font-size:10px; transition:color 0.2s; font-weight:600; }
+.tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:none; border:none; cursor:pointer; color:var(--txt4); font-size:11px; transition:color 0.2s; }
 .tab-btn.active { color:var(--red); }
-.tab-btn .icon { font-size:20px; filter: grayscale(100%) opacity(0.6); }
+.tab-btn .icon { font-size:20px; filter: grayscale(100%) opacity(0.6); margin-bottom: 2px; }
 .tab-btn.active .icon { filter: none; }
 
 /* PAGES & COMMON */
 .page { display:none; padding:16px; animation: fadeIn 0.2s ease; }
 .page.active { display:block; }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-.page-title { font-family:'IBM Plex Sans KR', sans-serif; font-size:22px; font-weight:700; color:var(--txt); margin-bottom:16px; }
+.page-title { font-size:26px; color:var(--txt); margin-bottom:16px; }
 .card { background:var(--bg2); border:1px solid var(--brd); border-radius:12px; padding:16px; margin-bottom:16px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
-.card-title { font-size:13px; color:var(--txt); margin-bottom:12px; font-weight:700; letter-spacing:0.05em; }
+.card-title { font-size:16px; color:var(--txt); margin-bottom:12px; }
 
 /* BUTTONS */
 .btn { background:var(--bg2); border:1px solid var(--brd2); color:var(--txt); padding:8px 14px; cursor:pointer; font-family:inherit; font-size:13px; border-radius:6px; transition:all 0.2s; font-weight:600; }
@@ -97,7 +108,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 /* NEXT D-DAY HIGHLIGHT */
 .closest-row td { background-color: rgba(240,90,40,0.08) !important; }
 .closest-row .st-date { border-left: 3px solid var(--red) !important; }
-.next-badge { display: inline-block; font-size: 8px; background: var(--red); color: #fff; padding: 1px 4px; border-radius: 4px; margin-bottom: 2px; font-weight: 800; letter-spacing: 0.5px; }
+.next-badge { display: inline-block; font-size: 10px; background: var(--red); color: #fff; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; }
 
 .st-date { position:sticky; left:0; z-index:20; background:var(--bg2); border-left:1px solid var(--brd); min-width:55px; max-width:55px; font-weight:600; }
 .st-time { position:sticky; left:55px; z-index:20; background:var(--bg2); min-width:45px; max-width:45px; }
@@ -121,7 +132,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 @keyframes popIn { from { transform:scale(0.95); opacity:0; } to { transform:scale(1); opacity:1; } }
 
 .detail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.detail-date-title { font-size: 18px; font-weight: 700; color: var(--txt); font-family: 'IBM Plex Sans KR', sans-serif; }
+.detail-date-title { font-size: 20px; color: var(--txt); }
 .detail-info-row { font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; }
 .dt-label { color: var(--red); font-weight: 700; margin-right: 12px; width: 60px; }
 .dt-value { color: var(--txt); font-weight: 600; flex:1; }
@@ -165,7 +176,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 .wcard-label-curr { font-size:10px; color:var(--red); font-weight:700; margin-bottom:6px; }
 .wcard-label-final { font-size:10px; color:var(--txt2); font-weight:600; margin-bottom:6px; }
 .wcard-sub { font-size:10px; color:var(--txt4); margin-top:6px; transform:scale(0.85); transform-origin:center; white-space:nowrap; }
-.wcard-val { font-size:22px; font-weight:700; font-family:'IBM Plex Sans KR'; color:var(--txt); }
+.wcard-val { font-size:24px; color:var(--txt); }
 
 .collapsible-content { display:none; margin-top:12px; border-top:1px dashed var(--brd2); padding-top:12px; }
 .collapsible-content.open { display:block; }
@@ -182,27 +193,25 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
   color: var(--txt);
-  font-family: 'IBM Plex Sans KR', sans-serif;
   transition: transform 0.3s ease;
+  font-size: 14px;
 }
 .photobook-icon::after {
-  content: 'BOOK';
-  font-size: 10px;
+  content: 'LOG';
+  font-size: 12px;
   opacity: 0.6;
 }
 .photobook-icon:hover {
   transform: scale(1.05) rotate(3deg);
 }
 
-/* HEATMAP & MINIMAP (원형 무대 사선 배치 반영) */
-/* C구역과 겹치지 않게 여백(gap, padding) 넓게 확보 */
-.heatmap-wrap { display:flex; flex-direction:row; gap:30px; align-items:flex-start; justify-content:center; overflow-x:auto; padding:20px; padding-bottom:40px; width:100%; min-width:max-content; margin:0 auto; }
-.mini-hm-container { display:flex; flex-direction:row; gap:20px; align-items:flex-start; margin:16px 0; border:1px solid var(--brd2); padding:30px 20px; border-radius:8px; background:var(--bg2); overflow-x:auto; justify-content:center; }
+/* HEATMAP & MINIMAP (원형 무대 사선 배치 및 C구역 밸런스 조정) */
+.heatmap-wrap { display:flex; flex-direction:row; gap:10px; align-items:flex-start; justify-content:center; overflow-x:auto; padding:20px; padding-bottom:50px; width:100%; min-width:max-content; margin:0 auto; }
+.mini-hm-container { display:flex; flex-direction:row; gap:5px; align-items:flex-start; margin:16px 0; border:1px solid var(--brd2); padding:30px 10px 40px 10px; border-radius:8px; background:var(--bg2); overflow-x:auto; justify-content:center; }
 
 .zone-col { display:flex; flex-direction:column; gap:3px; align-items:center; }
-.seat-row { display:flex; gap:3px; align-items:center; }
+.seat-row { display:flex; gap:3px; align-items:center; justify-content:center; }
 .row-label { font-size:9px; width:12px; text-align:center; color:var(--txt3); margin-right:4px; font-weight:700; }
 .seat-cell { width:12px; height:12px; background:var(--bg4); border-radius:2px; border:1px solid transparent; flex-shrink:0; }
 .seat-aisle { width:8px; flex-shrink:0; }
@@ -261,7 +270,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
     <div class="card" style="padding:12px;">
       <div class="cal-nav">
         <button class="btn sm" onclick="changeMonth(-1)">‹ 이전달</button>
-        <div id="cal-month-title" style="font-weight:700; font-size:18px; color:var(--txt);"></div>
+        <div id="cal-month-title" style="font-weight:700; font-size:22px; color:var(--txt);"></div>
         <button class="btn sm" onclick="changeMonth(1)">다음달 ›</button>
       </div>
       <div id="cal-grid-container"></div>
@@ -390,16 +399,16 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 </div>
 
 <nav class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('record', this)"><span class="icon">📝</span>기록</button>
-  <button class="tab-btn" onclick="switchTab('calendar', this)"><span class="icon">📅</span>스케줄</button>
-  <button class="tab-btn" onclick="switchTab('coupon', this)"><span class="icon">🎫</span>도장·할인권</button>
-  <button class="tab-btn" onclick="switchTab('stats', this)"><span class="icon">📊</span>정산</button>
-  <button class="tab-btn" onclick="switchTab('settings', this)"><span class="icon">⚙️</span>설정</button>
+  <button class="tab-btn active" onclick="switchTab('record', this)"><span class="icon">📝</span><span class="tab-btn-text">기록</span></button>
+  <button class="tab-btn" onclick="switchTab('calendar', this)"><span class="icon">📅</span><span class="tab-btn-text">스케줄</span></button>
+  <button class="tab-btn" onclick="switchTab('coupon', this)"><span class="icon">🎫</span><span class="tab-btn-text">도장·할인권</span></button>
+  <button class="tab-btn" onclick="switchTab('stats', this)"><span class="icon">📊</span><span class="tab-btn-text">정산</span></button>
+  <button class="tab-btn" onclick="switchTab('settings', this)"><span class="icon">⚙️</span><span class="tab-btn-text">설정</span></button>
 </nav>
 
 <div class="overlay" id="modal-record" onclick="if(event.target===this) closeModal('modal-record')">
   <div class="modal">
-    <div class="page-title" id="rm-title" style="font-size:18px;">회차 기록</div>
+    <div class="page-title" id="rm-title" style="font-size:22px;">회차 기록</div>
     <input type="hidden" id="rm-id">
     <input type="hidden" id="rm-create-time">
     
@@ -516,7 +525,7 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 
 <div class="overlay" id="modal-wallet" onclick="if(event.target===this) closeModal('modal-wallet')">
   <div class="modal">
-    <div class="page-title" id="wm-title" style="font-size:18px;">할인권 내역</div>
+    <div class="page-title" id="wm-title" style="font-size:22px;">할인권 내역</div>
     <input type="hidden" id="wm-id">
     <input type="hidden" id="wm-create-time">
     <div class="fg"><label class="flbl">날짜</label><input type="date" id="wm-date" class="finput" style="text-transform:none;"></div>
@@ -583,14 +592,14 @@ const CONFIG = {
 
 // ============================================================
 // 대학로 TOM 2관 좌석 데이터 (B, C, D 3구역 구조 완벽 반영)
-// - B와 D 구역의 사선 배치를 구현하기 위해 null 패딩으로 조정
+// - null 패딩을 추가하여 격자를 만들고 CSS transform으로 각도 부여
 // ============================================================
 const THEATER_ZONES = [
   {
     name: 'B구역',
     rows: [
-      { id: '1', map: [null, null, 9, 8, null, null, null, null, null, null, null] },
-      { id: '2', map: [null, 10, 9, 8, 7, 6, 5, 4, null, null, null] },
+      { id: '1', map: [null, null, null, 8, 7, 6, 5, 4, 3, 2, 1] },
+      { id: '2', map: [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
       { id: '3', map: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
       { id: '4', map: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
       { id: '5', map: [null, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
@@ -847,8 +856,9 @@ function renderRecords() {
 }
 
 function initRecordForm() {
+  // 💡 2 x 2 캐스팅 배열을 위해 넓이를 50%로 지정
   document.getElementById('rm-cast-container').innerHTML = CONFIG.ROLES.map((role, idx) => `
-    <div class="fg" style="min-width:30%; flex:1;">
+    <div class="fg" style="width:calc(50% - 4px);">
       <label class="flbl">${role.label}</label>
       <select id="rm-cast${idx+1}" class="fselect">
         <option value="">선택</option>
@@ -920,7 +930,7 @@ function renderBoardCheckboxesInModal(selectedId = "") {
   html += state.boards.map((b) => {
     const isChecked = (selectedId === b.id);
     return `<label style="padding:4px 8px; border:1px solid var(--brd2); background:var(--bg2); border-radius:4px; font-size:12px; display:flex; align-items:center; gap:4px; cursor:pointer; font-weight:600;">
-      <input type="radio" name="rm-board-radio" value="${b.id}" ${isChecked ? 'checked' : ''}> ${b.name}
+      <input type="radio" name="rm-board-radio" value="${b.id}" ${isChecked ? 'checked' : ''}> <span style="font-family:'NeoDunggeunmo'; font-size:14px;">${b.name}</span>
     </label>`;
   }).join('');
   document.getElementById('rm-boards').innerHTML = html;
@@ -1110,8 +1120,9 @@ function renderMiniMap(selZone, selRow, selNum) {
   THEATER_ZONES.forEach(z => {
     // 💡 B, D구역을 사선으로 기울여 원형 무대 형태로 보이게 설정
     let tStyle = '';
-    if(z.name === 'B구역') tStyle = 'transform: rotate(26deg); margin-top: 20px;';
-    if(z.name === 'D구역') tStyle = 'transform: rotate(-26deg); margin-top: 20px;';
+    if(z.name === 'B구역') tStyle = 'transform: rotate(30deg); transform-origin: top right; margin-top: 50px; margin-right: 15px;';
+    if(z.name === 'C구역') tStyle = 'margin-top: 120px;';
+    if(z.name === 'D구역') tStyle = 'transform: rotate(-30deg); transform-origin: top left; margin-top: 50px; margin-left: 15px;';
 
     hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; transition:0.3s; ${tStyle}">`;
     hmHtml += `<div style="font-size:11px; font-weight:700; color:var(--txt2); margin-bottom:8px;">${z.name}</div>`;
@@ -1496,7 +1507,7 @@ function renderCoupons() {
   const bals = calculateWalletBalances();
   
   const getColor = (val) => {
-    if(val > 0) return 'var(--txt)'; 
+    if(val > 0) return 'var(--red)'; 
     if(val < 0) return '#d9534f'; 
     return 'var(--txt4)'; 
   };
@@ -1509,12 +1520,12 @@ function renderCoupons() {
         <div class="wcard-header">${f.label}</div>
         <div class="wcard-body" style="flex-direction:column;">
           <div class="wcard-half" style="border-right:none; border-bottom:1px solid var(--brd2); padding:8px 0;">
-            <div class="wcard-label-curr" style="color:var(--red);">현재</div>
+            <div class="wcard-label-curr" style="color:var(--txt2);">현재</div>
             <div class="wcard-val" style="color:${getColor(cVal)};">${cVal}</div>
           </div>
           <div class="wcard-half" style="padding:8px 0;">
             <div class="wcard-label-final">최종</div>
-            <div class="wcard-val" style="color:var(--txt3)">${fVal}</div>
+            <div class="wcard-val" style="color:var(--txt3); font-size:18px;">${fVal}</div>
           </div>
         </div>
       </div>
@@ -1728,14 +1739,14 @@ function renderBoardStatus() {
       <div style="margin-bottom:8px;">
         <div class="flex-between" style="margin-bottom:4px;">
           <div style="display:flex; align-items:center; gap:8px;">
-             <span style="font-weight:700; font-size:13px; color:var(--txt);">${b.name}</span>
+             <span style="font-weight:700; font-size:14px; font-family:'NeoDunggeunmo'; color:var(--txt);">${b.name}</span>
              <button class="btn sm ghost" style="padding:0 4px; font-size:10px; color:var(--txt3);" onclick="editBoardName('${b.id}')">수정</button>
              <button class="btn sm ghost" style="padding:0 4px; font-size:10px; color:#d9534f;" onclick="deleteBoard('${b.id}')">삭제</button>
           </div>
           <span style="font-size:10px; color:var(--txt4); cursor:pointer; font-weight:600;" onclick="toggleCollapsible('board-hist-${b.id}')">상세 ▼</span>
         </div>
         <div style="font-size:11px; color:var(--txt3); font-weight:600;">
-          현재 <span style="font-size:16px; color:${getBoardColor(cCnt)}; font-weight:700; font-family:'IBM Plex Sans KR';">${cCnt}</span> / 최종 <span style="font-size:16px; color:var(--txt3); font-weight:700; font-family:'IBM Plex Sans KR';">${fCnt}</span>
+          현재 <span class="wcard-val" style="font-size:16px; color:${getBoardColor(cCnt)};">${cCnt}</span> / 최종 <span class="wcard-val" style="font-size:16px; color:var(--txt3);">${fCnt}</span>
         </div>
       </div>
       <div style="font-size:10px; color:var(--txt2); margin-bottom:6px; font-weight:600;">
@@ -1764,12 +1775,12 @@ function renderBoardStatus() {
       <div style="flex:1; display:flex; justify-content:space-around; align-items:center;">
         <div style="text-align:center;">
           <div style="font-size:11px; color:var(--txt); font-weight:700; margin-bottom:4px;">현재 획득</div>
-          <div style="font-size:24px; font-weight:700; font-family:'IBM Plex Sans KR'; color:${currPhotobook > 0 ? 'var(--txt)' : 'var(--txt4)'};">${currPhotobook}</div>
+          <div class="wcard-val" style="color:${currPhotobook > 0 ? 'var(--txt)' : 'var(--txt4)'};">${currPhotobook}</div>
         </div>
         <div style="width:1px; height:30px; background:var(--brd2);"></div>
         <div style="text-align:center;">
           <div style="font-size:11px; color:var(--txt3); font-weight:600; margin-bottom:4px;">최종 예정</div>
-          <div style="font-size:24px; font-weight:700; font-family:'IBM Plex Sans KR'; color:var(--txt2);">${finalPhotobook}</div>
+          <div class="wcard-val" style="color:var(--txt2);">${finalPhotobook}</div>
         </div>
       </div>
     </div>
@@ -1858,8 +1869,9 @@ function renderStats() {
   THEATER_ZONES.forEach(z => { 
     // 💡 B, D구역을 사선으로 기울여 원형 무대 형태로 보이게 설정
     let tStyle = '';
-    if(z.name === 'B구역') tStyle = 'transform: rotate(26deg); margin-top: 35px;';
-    if(z.name === 'D구역') tStyle = 'transform: rotate(-26deg); margin-top: 35px;';
+    if(z.name === 'B구역') tStyle = 'transform: rotate(30deg); transform-origin: top right; margin-top: 50px; margin-right: 15px;';
+    if(z.name === 'C구역') tStyle = 'margin-top: 120px;';
+    if(z.name === 'D구역') tStyle = 'transform: rotate(-30deg); transform-origin: top left; margin-top: 50px; margin-left: 15px;';
 
     hmHtml += `<div style="display:flex; flex-direction:column; align-items:center; transition:0.3s; ${tStyle}">`;
     hmHtml += `<div style="font-size:11px; font-weight:700; color:var(--txt); margin-bottom:12px;">${z.name}</div>`;
@@ -1915,7 +1927,7 @@ function renderStats() {
       <td style="color:var(--txt2); font-weight:600;">${r.time}</td>
       <td style="color:var(--red); font-weight:700;">${castStr}</td>
       <td style="font-size:11px; color:var(--txt2);">${longSeatStr}</td>
-      <td style="font-size:11px; color:var(--txt); font-weight:600; white-space:normal; line-height:1.2;">${evName}</td>
+      <td style="font-size:11px; color:var(--txt); font-weight:600; white-space:nowrap;">${evName}</td>
     </tr>`;
   }).join('');
   
