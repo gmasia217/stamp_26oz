@@ -1128,18 +1128,18 @@ function renderMiniMap(selZone, selRow, selNum) {
     let colAlign = 'center';
     let shiftFactor = 0;
     
-    // 💡 구역별 각도, C구역 밸런스, 통로 수직 일자 정렬을 위한 offset 계산
+    // 💡 잘림 방지 여백 추가 및 C구역 높이 수정
     if(z.name === 'B구역') {
-        tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 15px; margin-right: 5px;';
-        colAlign = 'flex-end'; // 우측 통로 기준 정렬
+        tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 15px; margin-left: 40px; margin-right: 10px;';
+        colAlign = 'flex-end'; 
         shiftFactor = 6.5; 
     }
     if(z.name === 'C구역') {
-        tStyle = 'margin-top: 55px;'; // 2열 라인에 맞게 높이 끌어올림
+        tStyle = 'margin-top: 35px;'; 
     }
     if(z.name === 'D구역') {
-        tStyle = 'transform: rotate(-28deg); transform-origin: top left; margin-top: 15px; margin-left: 5px;';
-        colAlign = 'flex-start'; // 좌측 통로 기준 정렬
+        tStyle = 'transform: rotate(-28deg); transform-origin: top left; margin-top: 15px; margin-left: 10px; margin-right: 40px;';
+        colAlign = 'flex-start'; 
         shiftFactor = -6.5;
     }
 
@@ -1148,8 +1148,14 @@ function renderMiniMap(selZone, selRow, selNum) {
     hmHtml += `<div class="zone-col" style="gap:2px; align-items: ${colAlign};">`;
     
     z.rows.forEach((rowInfo, rIdx) => {
-      // 열이 내려갈수록 shiftFactor만큼 당겨서 통로가 일자(|)가 되도록 처리
-      hmHtml += `<div class="mini-seat-row" style="transform: translateX(${shiftFactor * rIdx}px);"><div class="mini-row-label">${rowInfo.id}</div>`;
+      // 💡 B구역 6열(1칸), 7열(2칸) 오른쪽 통로 들여쓰기 처리
+      let extraMargin = '';
+      if (z.name === 'B구역') {
+          if (rowInfo.id === '6') extraMargin = 'margin-right: 12px;';
+          if (rowInfo.id === '7') extraMargin = 'margin-right: 24px;';
+      }
+      
+      hmHtml += `<div class="mini-seat-row" style="transform: translateX(${shiftFactor * rIdx}px); ${extraMargin}"><div class="mini-row-label">${rowInfo.id}</div>`;
       rowInfo.map.forEach(col => {
         if (col === null) {
            hmHtml += `<div class="mini-seat-cell hidden"></div>`;
@@ -1891,16 +1897,17 @@ function renderStats() {
     let colAlign = 'center';
     let shiftFactor = 0;
     
+    // 💡 잘림 방지 여백 추가 및 C구역 높이 수정 (큰 히트맵 규격에 맞춤)
     if(z.name === 'B구역') {
-        tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 30px; margin-right: 15px;';
+        tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 25px; margin-left: 50px; margin-right: 20px;';
         colAlign = 'flex-end';
         shiftFactor = 8;
     }
     if(z.name === 'C구역') {
-        tStyle = 'margin-top: 75px;';
+        tStyle = 'margin-top: 45px;';
     }
     if(z.name === 'D구역') {
-        tStyle = 'transform: rotate(-28deg); transform-origin: top left; margin-top: 30px; margin-left: 15px;';
+        tStyle = 'transform: rotate(-28deg); transform-origin: top left; margin-top: 25px; margin-left: 20px; margin-right: 50px;';
         colAlign = 'flex-start';
         shiftFactor = -8;
     }
@@ -1910,7 +1917,14 @@ function renderStats() {
     hmHtml += `<div class="zone-col" style="align-items: ${colAlign};">`;
     
     z.rows.forEach((rowInfo, rIdx) => {
-      hmHtml += `<div class="seat-row" style="transform: translateX(${shiftFactor * rIdx}px);"><div class="row-label">${rowInfo.id}</div>`;
+      // 💡 B구역 6열(1칸), 7열(2칸) 오른쪽 통로 들여쓰기 처리
+      let extraMargin = '';
+      if (z.name === 'B구역') {
+          if (rowInfo.id === '6') extraMargin = 'margin-right: 15px;';
+          if (rowInfo.id === '7') extraMargin = 'margin-right: 30px;';
+      }
+
+      hmHtml += `<div class="seat-row" style="transform: translateX(${shiftFactor * rIdx}px); ${extraMargin}"><div class="row-label">${rowInfo.id}</div>`;
       rowInfo.map.forEach(col => {
         if (col === null) {
            hmHtml += `<div class="seat-cell hidden"></div>`;
