@@ -3,7 +3,7 @@ const urlsToCache = [
   './',
   './index.html',
   './oz_logo.png',
-  './sidereus_icon.jpg'
+  './oz_icon.jpg'
 ];
 
 self.addEventListener('install', event => {
