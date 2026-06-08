@@ -13,8 +13,15 @@
 <meta name="theme-color" content="#FFD500">
 
 <style>
-/* 1. 픽셀체(Neo둥근모)와 고딕체(프리텐다드) 동시 로드 */
-@import url('https://cdn.jsdelivr.net/gh/neodunggeunmo/neodunggeunmo/webfont/neodunggeunmo.css');
+/* 1. 픽셀체(Neo둥근모) 직접 로드 (모바일 깨짐 방지) */
+@font-face {
+    font-family: 'NeoDunggeunmo';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.3/NeoDunggeunmo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 프리텐다드 및 기존 폰트 로드 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap');
 
