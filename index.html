@@ -1120,17 +1120,22 @@ function openDetailModal(id) {
   openModal('modal-detail');
 }
 
+// ---------------------------
+// 상세 정보 팝업 & 미니맵
+// ---------------------------
+// ---------------------------
+// 상세 정보 팝업 & 미니맵
+// ---------------------------
 function renderMiniMap(selZone, selRow, selNum) {
-  let hmHtml = '<div class="mini-hm-container">';
+  let hmHtml = '<div class="mini-hm-container" style="justify-content: flex-start; padding-left: 30px; padding-right: 30px;">';
   
   THEATER_ZONES.forEach(z => {
     let tStyle = '';
     let colAlign = 'center';
     let shiftFactor = 0;
     
-    // 💡 잘림 방지 여백 추가 및 C구역 높이 수정
     if(z.name === 'B구역') {
-        tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 15px; margin-left: 40px; margin-right: 10px;';
+        tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 15px; margin-left: 80px; margin-right: 10px;';
         colAlign = 'flex-end'; 
         shiftFactor = 6.5; 
     }
@@ -1138,7 +1143,7 @@ function renderMiniMap(selZone, selRow, selNum) {
         tStyle = 'margin-top: 35px;'; 
     }
     if(z.name === 'D구역') {
-        tStyle = 'transform: rotate(-28deg); transform-origin: top left; margin-top: 15px; margin-left: 10px; margin-right: 40px;';
+        tStyle = 'transform: rotate(-28deg); transform-origin: top left; margin-top: 15px; margin-left: 10px; margin-right: 80px;';
         colAlign = 'flex-start'; 
         shiftFactor = -6.5;
     }
@@ -1148,14 +1153,19 @@ function renderMiniMap(selZone, selRow, selNum) {
     hmHtml += `<div class="zone-col" style="gap:2px; align-items: ${colAlign};">`;
     
     z.rows.forEach((rowInfo, rIdx) => {
-      // 💡 B구역 6열(1칸), 7열(2칸) 오른쪽 통로 들여쓰기 처리
       let extraMargin = '';
       if (z.name === 'B구역') {
           if (rowInfo.id === '6') extraMargin = 'margin-right: 12px;';
           if (rowInfo.id === '7') extraMargin = 'margin-right: 24px;';
       }
       
-      hmHtml += `<div class="mini-seat-row" style="transform: translateX(${shiftFactor * rIdx}px); ${extraMargin}"><div class="mini-row-label">${rowInfo.id}</div>`;
+      hmHtml += `<div class="mini-seat-row" style="transform: translateX(${shiftFactor * rIdx}px); ${extraMargin}">`;
+      
+      // 💡 D구역이 아닐 때만 왼쪽에 열 번호 표시
+      if (z.name !== 'D구역') {
+          hmHtml += `<div class="mini-row-label">${rowInfo.id}</div>`;
+      }
+
       rowInfo.map.forEach(col => {
         if (col === null) {
            hmHtml += `<div class="mini-seat-cell hidden"></div>`;
@@ -1164,6 +1174,12 @@ function renderMiniMap(selZone, selRow, selNum) {
            hmHtml += `<div class="mini-seat-cell ${isSel ? 'highlight' : ''}"></div>`;
         }
       });
+
+      // 💡 D구역일 때만 좌석을 다 그린 후 오른쪽에 열 번호 표시 (마진 방향 반전)
+      if (z.name === 'D구역') {
+          hmHtml += `<div class="mini-row-label" style="margin-right: 0; margin-left: 4px;">${rowInfo.id}</div>`;
+      }
+
       hmHtml += `</div>`;
     });
     
@@ -1897,7 +1913,6 @@ function renderStats() {
     let colAlign = 'center';
     let shiftFactor = 0;
     
-    // 💡 잘림 방지 여백 추가 및 C구역 높이 수정 (큰 히트맵 규격에 맞춤)
     if(z.name === 'B구역') {
         tStyle = 'transform: rotate(28deg); transform-origin: top right; margin-top: 25px; margin-left: 50px; margin-right: 20px;';
         colAlign = 'flex-end';
@@ -1917,14 +1932,19 @@ function renderStats() {
     hmHtml += `<div class="zone-col" style="align-items: ${colAlign};">`;
     
     z.rows.forEach((rowInfo, rIdx) => {
-      // 💡 B구역 6열(1칸), 7열(2칸) 오른쪽 통로 들여쓰기 처리
       let extraMargin = '';
       if (z.name === 'B구역') {
           if (rowInfo.id === '6') extraMargin = 'margin-right: 15px;';
           if (rowInfo.id === '7') extraMargin = 'margin-right: 30px;';
       }
 
-      hmHtml += `<div class="seat-row" style="transform: translateX(${shiftFactor * rIdx}px); ${extraMargin}"><div class="row-label">${rowInfo.id}</div>`;
+      hmHtml += `<div class="seat-row" style="transform: translateX(${shiftFactor * rIdx}px); ${extraMargin}">`;
+      
+      // 💡 D구역이 아닐 때만 왼쪽에 열 번호 표시
+      if (z.name !== 'D구역') {
+          hmHtml += `<div class="row-label">${rowInfo.id}</div>`;
+      }
+
       rowInfo.map.forEach(col => {
         if (col === null) {
            hmHtml += `<div class="seat-cell hidden"></div>`;
@@ -1934,6 +1954,12 @@ function renderStats() {
            hmHtml += `<div class="seat-cell ${getHeatClass(cnt)}" title="${z.name} ${rowInfo.id}열 ${col}번: ${cnt}회"></div>`;
         }
       });
+
+      // 💡 D구역일 때만 좌석을 다 그린 후 오른쪽에 열 번호 표시 (마진 방향 반전)
+      if (z.name === 'D구역') {
+          hmHtml += `<div class="row-label" style="margin-right: 0; margin-left: 4px;">${rowInfo.id}</div>`;
+      }
+
       hmHtml += `</div>`;
     });
     
