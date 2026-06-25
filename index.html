@@ -119,6 +119,12 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 }
 .dud-input[type=number] { -moz-appearance: textfield; }
 
+/* 값이 입력된 꽝 카드 칸의 배경과 글자색 강조 */
+.dud-input.has-val {
+  background-color: rgba(240, 90, 40, 0.12) !important; /* 연한 주황색 배경 */
+  color: var(--red); /* 쨍한 주황색 텍스트 */
+}
+
 /* TABLE */
 .twrap { overflow-x:auto; margin:0 -16px; padding:0 16px; -webkit-overflow-scrolling: touch; }
 table.record-tb { width:max-content; min-width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--brd); border-left:0; border-top:0; }
@@ -128,6 +134,12 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
 
 /* NEXT D-DAY HIGHLIGHT */
 .closest-row td { background-color: rgba(240,90,40,0.08) !important; }
+
+/* 💡 고정된 열(날짜, 시간, 캐스트)은 스크롤 시 글씨가 비치지 않게 투명도 없는 단색으로 덮어씌움 */
+.closest-row .st-date, 
+.closest-row .st-time, 
+.closest-row .st-cast { background-color: #FEF2EE !important; }
+
 .closest-row .st-date { border-left: 3px solid var(--red) !important; }
 .next-badge { display: inline-block; font-size: 10px; background: var(--red); color: #fff; padding: 2px 5px; border-radius: 4px; margin-bottom: 2px; }
 
@@ -1880,7 +1892,10 @@ function renderDudCards() {
       html += `<td style="font-weight:600; color:var(--txt2);">${actor}</td>`;
       cardTypes.forEach(c => {
         const val = (state.dudCards[actor] && state.dudCards[actor][c]) || '';
-        html += `<td style="padding:0;"><input type="number" class="dud-input" value="${val}" min="0" onchange="updateDudCard('${actor}', '${c}', this.value)"></td>`;
+        // 💡 값이 있으면 has-val 클래스를 미리 부여
+        const hasValClass = val ? 'has-val' : '';
+        // 💡 onchange에서 this.value 대신 this(요소 자체)를 넘김
+        html += `<td style="padding:0; height:100%;"><input type="number" class="dud-input ${hasValClass}" style="height:35px;" value="${val}" min="0" onchange="updateDudCard('${actor}', '${c}', this)"></td>`;
       });
       html += `</tr>`;
     });
@@ -1889,13 +1904,20 @@ function renderDudCards() {
   document.getElementById('dud-table').innerHTML = html;
 }
 
-function updateDudCard(actor, card, value) {
+function updateDudCard(actor, card, inputEl) {
   if (!state.dudCards[actor]) state.dudCards[actor] = {};
+  
+  const value = inputEl.value;
   const num = parseInt(value, 10);
+  
   if (isNaN(num) || num <= 0) {
      delete state.dudCards[actor][card];
+     // 💡 값을 지우면 배경색 원상복구
+     inputEl.classList.remove('has-val');
   } else {
      state.dudCards[actor][card] = num;
+     // 💡 값을 입력하면 포인트 배경색 켜기
+     inputEl.classList.add('has-val');
   }
   saveState();
 }
