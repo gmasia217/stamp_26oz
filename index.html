@@ -105,6 +105,20 @@ body { background:var(--bg); color:var(--txt); font-family:'Pretendard', sans-se
 .seg-item.active.red { background:rgba(240,90,40,0.12); border-color:var(--red); color:var(--red); }
 .seg-item.active.grn { background:rgba(0,158,96,0.12); border-color:var(--grn); color:var(--grn); }
 
+/* 엑셀 느낌의 꽝 카드 숫자 입력칸 스타일 */
+.dud-input {
+  width: 100%; border: none; background: transparent; text-align: center;
+  outline: none; font-family: inherit; color: var(--txt); font-weight: 700;
+}
+.dud-input:focus {
+  background: var(--bg3);
+}
+.dud-input::-webkit-outer-spin-button,
+.dud-input::-webkit-inner-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+.dud-input[type=number] { -moz-appearance: textfield; }
+
 /* TABLE */
 .twrap { overflow-x:auto; margin:0 -16px; padding:0 16px; -webkit-overflow-scrolling: touch; }
 table.record-tb { width:max-content; min-width:100%; border-collapse:separate; border-spacing:0; border:1px solid var(--brd); border-left:0; border-top:0; }
@@ -327,7 +341,15 @@ table.record-tb { width:max-content; min-width:100%; border-collapse:separate; b
       <div class="card-title" style="margin:0; margin-bottom:16px;">📖 오즈 로그북 획득 현황</div>
       <div id="ost-container" style="margin-bottom:0;"></div>
     </div>
-    
+
+    <div class="card" style="background: var(--bg2); border-color: var(--brd2);">
+      <div class="card-title" style="margin:0; margin-bottom:16px;">🎮 꽝 카드 현황</div>
+      <div class="twrap" style="margin:0; padding:0;">
+        <table class="record-tb" style="width:100%; border-left:1px solid var(--brd); border-top:1px solid var(--brd);" id="dud-table">
+          </table>
+      </div>
+    </div>
+      
   </div>
 
   <div class="page" id="page-stats">
@@ -646,7 +668,8 @@ let state = {
   wallet: [], 
   walletOrder: {}, 
   schedule: [],
-  events: []
+  events: [],
+  dudCards: {} // ✨ 이 줄을 새로 추가!
 };
 
 let calFilters = {};
@@ -665,6 +688,7 @@ function loadState() {
     state.boards = parsed.boards || [{ id: "b1", name: "1", initial: 0, active: true }];
     state.wallet = parsed.wallet || [];
     state.walletOrder = parsed.walletOrder || {}; 
+    state.dudCards = parsed.dudCards || {}; // ✨ 이 줄을 새로 추가!
     
     if (parsed.schedule && parsed.schedule.length > 0) {
         state.schedule = parsed.schedule;
@@ -1618,6 +1642,7 @@ function renderCoupons() {
     }).join('');
   }
   renderBoardStatus();
+  renderDudCards(); // ✨ 이 줄을 새로 추가! (도장판 탭 열릴 때 꽝 카드도 그려짐)
 }
 
 function initWalletForm() {
@@ -1837,6 +1862,44 @@ function addBoard() {
   saveState(); renderCoupons(); renderRecords();
 }
 
+// ---------------------------
+// 꽝 카드 현황 렌더링 및 업데이트
+// ---------------------------
+function renderDudCards() {
+  const cardTypes = ['까마귀', '벌떼', '원숭이', '서쪽마녀'];
+  let html = `<thead><tr><th style="width:15%">배역</th><th style="width:20%">배우</th>`;
+  cardTypes.forEach(c => html += `<th>${c}</th>`);
+  html += `</tr></thead><tbody>`;
+
+  CONFIG.ROLES.forEach(role => {
+    role.actors.forEach((actor, idx) => {
+      html += `<tr>`;
+      if (idx === 0) {
+        html += `<td rowspan="${role.actors.length}" style="font-weight:700; color:var(--txt); background:var(--bg3); vertical-align:middle; border-right:1px solid var(--brd);">${role.label}</td>`;
+      }
+      html += `<td style="font-weight:600; color:var(--txt2);">${actor}</td>`;
+      cardTypes.forEach(c => {
+        const val = (state.dudCards[actor] && state.dudCards[actor][c]) || '';
+        html += `<td style="padding:0;"><input type="number" class="dud-input" value="${val}" min="0" onchange="updateDudCard('${actor}', '${c}', this.value)"></td>`;
+      });
+      html += `</tr>`;
+    });
+  });
+  html += `</tbody>`;
+  document.getElementById('dud-table').innerHTML = html;
+}
+
+function updateDudCard(actor, card, value) {
+  if (!state.dudCards[actor]) state.dudCards[actor] = {};
+  const num = parseInt(value, 10);
+  if (isNaN(num) || num <= 0) {
+     delete state.dudCards[actor][card];
+  } else {
+     state.dudCards[actor][card] = num;
+  }
+  saveState();
+}
+    
 // ============================================================
 // 7. STATS (정밀 좌석 히트맵 포함)
 // ============================================================
