@@ -1301,7 +1301,7 @@ function renderCalendar() {
         if (!conflict) break;
         row++;
       }
-      if (row < 3) segments.push({ week: w, startCol: sc, endCol: ec, color: ev.color, name: ev.name, row });
+      if (row < 3) segments.push({ week: w, startCol: sc, endCol: ec, color: ev.color, name: ev.name, row, link: ev.link });
     }
   });
 
@@ -1406,13 +1406,19 @@ function renderCalendar() {
     }
 
     if (maxRow > 0) {
+      // 바깥 컨테이너는 클릭을 통과시키도록 pointer-events:none 유지
       html += `<div style="position:absolute; top:24px; left:0; right:0; pointer-events:none;">`;
       for (let row = 0; row < maxRow; row++) {
         html += `<div style="position:relative; height:15px; margin-bottom:1px;">`;
         wSegs.filter(s => s.row === row).forEach(s => {
           const leftPct  = (s.startCol / 7 * 100).toFixed(2);
           const widthPct = ((s.endCol - s.startCol + 1) / 7 * 100).toFixed(2);
-          html += `<div style="position:absolute; left:${leftPct}%; width:calc(${widthPct}% - 2px); height:14px; background:${s.color}; border-radius:2px; display:flex; align-items:center; padding:0 4px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          
+          // 💡 링크가 있을 때만 손가락 커서(pointer)와 클릭 가능(auto) 처리, 없을 땐 빈 상자
+          let pointerStyle = s.link ? 'cursor:pointer; pointer-events:auto;' : 'pointer-events:none;';
+          let clickAction = s.link ? `onclick="event.stopPropagation(); window.open('${s.link}', '_blank')"` : '';
+
+          html += `<div ${clickAction} style="position:absolute; left:${leftPct}%; width:calc(${widthPct}% - 2px); height:14px; background:${s.color}; border-radius:2px; display:flex; align-items:center; padding:0 4px; overflow:hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); ${pointerStyle}">
             <span style="font-size:9px; font-weight:700; color:#fff; white-space:nowrap;">${s.name}</span>
           </div>`;
         });
@@ -1420,8 +1426,6 @@ function renderCalendar() {
       }
       html += `</div>`;
     }
-    html += `</div>`;
-  }
   document.getElementById('cal-grid-container').innerHTML = html;
 }
 
