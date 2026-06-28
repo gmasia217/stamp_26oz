@@ -1426,8 +1426,12 @@ function renderCalendar() {
       }
       html += `</div>`;
     }
+    
+    html += `</div>`; // 💡 1. 캘린더 주차(week) 박스 닫기 (이 줄이 빠져있었음!)
+  } // 💡 2. for(let w=0; w<weeks; w++) 반복문 닫기 (이 줄도 빠져있었음!)
+  
   document.getElementById('cal-grid-container').innerHTML = html;
-}
+} // 💡 3. renderCalendar 함수 닫기
 
 // ============================================================
 // 6. TAB 3: COUPON & STAMPS 
